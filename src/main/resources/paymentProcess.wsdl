@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://services.sf.crom.sf/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="PaymentProcessService" targetNamespace="http://services.sf.crom.sf/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://services.sf.crom.sf/" elementFormDefault="unqualified" targetNamespace="http://services.sf.crom.sf/" version="1.0">
+
+  <xs:element name="createPaymentProcess" type="tns:createPaymentProcess"/>
+
+  <xs:element name="createPaymentProcessResponse" type="tns:createPaymentProcessResponse"/>
+
+  <xs:complexType name="createPaymentProcess">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="PaymentProcessRequest" type="tns:paymentProcessRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="paymentProcessRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="amount" type="xs:double"/>
+      <xs:element minOccurs="0" name="creditCardInfo" type="tns:creditCardInfo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="creditCardInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="address" type="xs:string"/>
+      <xs:element minOccurs="0" name="cardNumber" type="xs:string"/>
+      <xs:element minOccurs="0" name="expireDate" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+      <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+      <xs:element minOccurs="0" name="secCode" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createPaymentProcessResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="tns:paymentProcessResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="paymentProcessResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="result" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="createPaymentProcess">
+    <wsdl:part element="tns:createPaymentProcess" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createPaymentProcessResponse">
+    <wsdl:part element="tns:createPaymentProcessResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="PaymentProcess">
+    <wsdl:operation name="createPaymentProcess">
+      <wsdl:input message="tns:createPaymentProcess" name="createPaymentProcess">
+    </wsdl:input>
+      <wsdl:output message="tns:createPaymentProcessResponse" name="createPaymentProcessResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PaymentProcessServiceSoapBinding" type="tns:PaymentProcess">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createPaymentProcess">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createPaymentProcess">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createPaymentProcessResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PaymentProcessService">
+    <wsdl:port binding="tns:PaymentProcessServiceSoapBinding" name="PaymentProcessPort">
+      <soap:address location="http://localhost:8080/PaymentProcessApp/Services/paymentProcess"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
